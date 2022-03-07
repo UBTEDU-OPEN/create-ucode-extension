@@ -71,7 +71,11 @@ module.exports = class extends Generator {
     const dirName = `ucodev4-ext-${this.props.name}`;
     mkdirp(dirName);
     this.destinationRoot(dirName);
+    // console.debug('this.ignore', this.ignore);
+  }
 
+  default() {
+    this.ext_uuid = uuid.v4();
     this.CommonProperty = {
       id: this.ext_uuid,
       name: this.props.name,
@@ -79,11 +83,6 @@ module.exports = class extends Generator {
       useEslint: this.props.useEslint,
       useTS: this.props.useTS,
     };
-    // console.debug('this.ignore', this.ignore);
-  }
-
-  default() {
-    this.ext_uuid = uuid.v4();
   }
 
   writing() {
