@@ -1,0 +1,16 @@
+{
+  "id": "<%= id %>",
+  "version": "0.0.1",
+  "name": "<%= name %>",
+  "type": "hardware",
+<%_ if (isSupportUploadMode) { _%>
+  "supportModes": ["online","upload"],
+<%_ } else { _%>
+  "supportModes": ["online"],
+<%_ } _%>
+  "description": "这是一个demo",
+  "icon": "logo.svg",
+  "author": "你的名字",
+  "readme": "这是一个测试",
+  "minimumVersion": "4.0.0+"
+}
