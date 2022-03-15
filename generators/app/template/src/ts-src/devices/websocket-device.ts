@@ -1,3 +1,7 @@
+/**
+ * 示例 硬件连接
+ */
+
 import {
   DeviceRegisterType,
   DeviceConnectionInterface,

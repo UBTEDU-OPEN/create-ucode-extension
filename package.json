@@ -1,6 +1,6 @@
 {
   "name": "@ubtech/generator-ucode",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "",
   "homepage": "",
   "author": {
@@ -17,8 +17,9 @@
   ],
   "devDependencies": {
     "jest": "^26.1.0",
+    "yeoman-test": "^1.7.0",
     "yeoman-assert": "^3.1.1",
-    "yeoman-test": "^1.7.0"
+    "husky": "^3.0.9"
   },
   "engines": {
     "npm": ">= 4.0.0"
@@ -27,13 +28,20 @@
     "chalk": "^2.1.0",
     "mkdirp": "^0.5.1",
     "uuid": "^8.3.2",
-    "yeoman-generator": "^5.4.2",
+    "yeoman-generator": "^3.1.1",
     "yosay": "^2.0.1"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "jest"
+    }
+  },
   "jest": {
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "modulePathIgnorePatterns": [
+      "./generators/app/template/others/package.json"
+    ]
   },
   "scripts": {},
-  "license": "MIT",
-  "gitHead": "5280680e05617aa0bf591bfc3831f1678127b14d"
+  "license": "MIT"
 }

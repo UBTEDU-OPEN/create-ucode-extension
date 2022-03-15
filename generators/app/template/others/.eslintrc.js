@@ -1,5 +1,5 @@
 module.exports = {
-<%_ if (useTS) { _%>
+<%_ if (developFeatures.includes('typescript')) { _%>
   root: true,
   parser: '@typescript-eslint/parser',
   env: {

@@ -1,3 +1,6 @@
+/**
+ * 示例 硬件连接
+ */
 export class WebsocketDevice {
   constructor(injectArgs) {
     this.ws = undefined;

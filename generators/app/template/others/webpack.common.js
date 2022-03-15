@@ -3,7 +3,7 @@ const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-<%_ if (useTS) { _%>
+<%_ if (developFeatures.includes('typescript')) { _%>
   entry: path.join(__dirname, 'src/index.ts'),
 <%_ } else { _%>
   entry: path.join(__dirname, 'src/index.js'),

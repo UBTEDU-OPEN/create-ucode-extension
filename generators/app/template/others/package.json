@@ -4,13 +4,13 @@
   "version": "0.0.1",
   "license": "ISC",
   "main": "dist/main.js",
-  <%_ if (useEslint) { _%>
+  <%_ if (developFeatures.includes('eslint')) { _%>
   "engines" : { 
     "node" : ">=16.0.0"
   },
   <%_ } _%>
   "scripts": {
-  <%_ if (useEslint) { _%>
+  <%_ if (developFeatures.includes('eslint')) { _%>
     "lint": "eslint --ext .js,.jsx,.ts,.tsx src --quiet",
     "lint:fix": "eslint --ext .js,.jsx,.ts,.tsx src --quiet --fix",
   <%_ } _%>
@@ -23,17 +23,17 @@
     "@ubtech/ucode-extension-common-sdk": "^0.0.7"
   },
   "devDependencies": {
-  <%_ if (useEslint) { _%>
+  <%_ if (developFeatures.includes('eslint')) { _%>
     "eslint": "^8.9.0",
     "eslint-config-prettier": "^8.4.0",
     "eslint-plugin-prettier": "^4.0.0",
-  <%_ if (useTS) { _%>
+  <%_ if (developFeatures.includes('typescript')) { _%>
     "@typescript-eslint/eslint-plugin": "^5.12.1",
     "@typescript-eslint/parser": "^5.12.1",
   <%_ } _%>
     "prettier": "^2.3.2",
   <%_ } _%>
-  <%_ if (useTS) { _%>
+  <%_ if (developFeatures.includes('typescript')) { _%>
     "typescript": "^4.5.5",
     "@babel/preset-typescript": "^7.16.7",
   <%_ } _%>

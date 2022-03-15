@@ -1,9 +1,13 @@
 import { UCodeLinkAPI } from '@ubtech/ucode-extension-common-sdk';
 import { ExampleDeviceExtension } from './block';
+<%_ if (hardwareFeatures.includes('ble')) { _%>
 import { bleRegister } from './devices/ble-device';
+<%_ } _%>
+<%_ if (hardwareFeatures.includes('serialport')) { _%>
 import { spRegister } from './devices/sp-device';
+<%_ } _%>
 import { WebsocketRegister } from './devices/websocket-device';
-<%_ if (isSupportUploadMode) { _%>
+<%_ if (hardwareFeatures.includes('uploadmode')) { _%>
 import { UploadModeRegister } from './upload-mode';
 <%_ } _%>
 const { injectRpcClient } = UCodeLinkAPI;
@@ -13,9 +17,17 @@ console.log('初始化硬件插件', "<%= name %>");
 injectRpcClient();
 
 const register = {
-  DeviceRegister: [bleRegister, spRegister, WebsocketRegister],
+  DeviceRegister: [
+<%_ if (hardwareFeatures.includes('ble')) { _%>
+    bleRegister,
+<%_ } _%>
+<%_ if (hardwareFeatures.includes('serialport')) { _%>
+    spRegister,
+<%_ } _%>
+    WebsocketRegister,
+  ],
   BlockRegister: ExampleDeviceExtension,
-<%_ if (isSupportUploadMode) { _%>
+<%_ if (hardwareFeatures.includes('uploadmode')) { _%>
   UploadModeRegister,
 <%_ } _%>
 };

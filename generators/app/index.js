@@ -25,37 +25,38 @@ module.exports = class extends Generator {
         default: 'demo',
       },
       {
-        type: 'list',
-        name: '插件类型',
-        message: '请选择插件的类型',
+        type: 'checkbox',
+        name: 'hardwareFeatures',
+        message: '要开启的硬件功能',
         choices: [
           {
-            name: '硬件 Hardware',
-            value: 'hardware',
+            name: '串口协议 SerialPort',
+            value: 'serialport',
           },
           {
-            name: '软件 Software（暂不支持）',
-            value: 'software',
+            name: '蓝牙协议 Ble',
+            value: 'ble',
+          },
+          {
+            name: '烧录模式',
+            value: 'uploadmode',
           },
         ],
       },
       {
-        type: 'confirm',
-        name: 'useTS',
-        message: '是否使用 TypeScript',
-        default: false,
-      },
-      {
-        type: 'confirm',
-        name: 'isSupportUploadMode',
-        message: '是否需要支持烧录模式',
-        default: false,
-      },
-      {
-        type: 'confirm',
-        name: 'useEslint',
-        message: '是否使用 ESLint',
-        default: false,
+        type: 'checkbox',
+        name: 'developFeatures',
+        message: '要支持的开发功能',
+        choices: [
+          {
+            name: '使用 TypeScript',
+            value: 'typescript',
+          },
+          {
+            name: '使用 ESLint',
+            value: 'eslint',
+          },
+        ],
       },
     ];
 
@@ -79,9 +80,8 @@ module.exports = class extends Generator {
     this.CommonProperty = {
       id: this.ext_uuid,
       name: this.props.name,
-      isSupportUploadMode: this.props.isSupportUploadMode,
-      useEslint: this.props.useEslint,
-      useTS: this.props.useTS,
+      hardwareFeatures: this.props.hardwareFeatures,
+      developFeatures: this.props.developFeatures,
     };
   }
 
@@ -93,12 +93,21 @@ module.exports = class extends Generator {
   install() {}
 
   _copySrc() {
-    if (!this.props.isSupportUploadMode) {
+    if (!this.props.hardwareFeatures.includes('uploadmode')) {
       // 如果不支持烧录模式, 则忽略 以下文件
-      this.ignore.push('**/*/src/upload-mode/**/*.*');
-      this.ignore.push('**/*/src/upload-mode/**/*.*');
+      this.ignore.push('**/*/upload-mode/**/*.*');
+      this.ignore.push('**/*/upload-mode/**/*.*');
     }
-    const srcPath = path.join(__dirname, 'template/src', this.props.useTS ? 'ts-src' : 'js-src');
+
+    if (!this.props.hardwareFeatures.includes('ble')) {
+      // 如果不开启蓝牙
+      this.ignore.push('**/*/devices/ble-device.?(js|ts)');
+    }
+    if (!this.props.hardwareFeatures.includes('serialport')) {
+      // 如果不开启蓝牙
+      this.ignore.push('**/*/devices/sp-device.?(js|ts)');
+    }
+    const srcPath = path.join(__dirname, 'template/src', this.props.developFeatures.includes('typescript') ? 'ts-src' : 'js-src');
     this.fs.copyTpl(
       this.templatePath(srcPath),
       this.destinationPath('src'),
@@ -114,12 +123,12 @@ module.exports = class extends Generator {
   }
 
   _copyOthers() {
-    if (!this.props.useEslint) {
+    if (!this.props.developFeatures.includes('eslint')) {
       // 如果不支持 ESLint, 则忽略 以下文件
       this.ignore.push('**/*/.eslintrc.js');
       this.ignore.push('**/*/.prettierrc.js');
     }
-    if (!this.props.useTS) {
+    if (!this.props.developFeatures.includes('typescript')) {
       // 如果不是 TypeScript 需要忽略这些文件
       this.ignore.push('**/*/types/*.d.ts');
       this.ignore.push('**/*/tsconfig.json');

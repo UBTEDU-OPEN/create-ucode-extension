@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "name": "<%= name %>",
   "type": "hardware",
-<%_ if (isSupportUploadMode) { _%>
+<%_ if (hardwareFeatures.includes('uploadmode')) { _%>
   "supportModes": ["online","upload"],
 <%_ } else { _%>
   "supportModes": ["online"],
