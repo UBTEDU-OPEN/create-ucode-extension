@@ -5,7 +5,7 @@
   "license": "ISC",
   "main": "dist/main.js",
   <%_ if (developFeatures.includes('eslint')) { _%>
-  "engines" : { 
+  "engines" : {
     "node" : ">=16.0.0"
   },
   <%_ } _%>
@@ -49,6 +49,7 @@
     "stream-browserify": "3.0.0",
     "webpack": "5.45.1",
     "webpack-cli": "4.7.2",
-    "webpack-merge": "^5.8.0"
+    "webpack-merge": "^5.8.0",
+    "ws": "^8.5.0"
   }
 }
