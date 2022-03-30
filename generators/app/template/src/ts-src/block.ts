@@ -2,8 +2,8 @@ import { WebsocketDevice } from './devices/websocket-device';
 
 export class ExampleDeviceExtension {
   getInfo() {
-    return {
-      name: '案例硬件',
+    return [{
+      name: '发送',
       blocks: [
         {
           opcode: 'test-send',
@@ -17,6 +17,10 @@ export class ExampleDeviceExtension {
           text: '发送消息: [TEXT]',
           func: 'testSendMsg',
         },
+      ],
+    }, {
+      name: '接收',
+      blocks: [
         {
           opcode: 'test-receive',
           blockType: self.UCode.BlockType.REPORTER,
@@ -30,10 +34,10 @@ export class ExampleDeviceExtension {
           func: 'testReceiveMsg',
         },
       ],
-    };
+    }];
   }
 
-  testDeviceMsg(args: { [key: string]: any }, util: { targetId: string }): Promise<void> {
+  testSendMsg(args: { [key: string]: any }, util: { targetId: string }): Promise<void> {
     return new Promise((resolve, reject) => {
       const device = self.UCode.extensions.getDevice<WebsocketDevice>(util.targetId);
       console.log('Device', device, util);

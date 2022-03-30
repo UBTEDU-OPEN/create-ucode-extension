@@ -1,7 +1,7 @@
 export class ExampleDeviceExtension {
   getInfo() {
-    return {
-      name: '案例硬件',
+    return [{
+      name: '发送',
       blocks: [
         {
           opcode: 'test-send',
@@ -15,6 +15,10 @@ export class ExampleDeviceExtension {
           text: '发送消息: [TEXT]',
           func: 'testSendMsg',
         },
+      ],
+    }, {
+      name: '接收',
+      blocks: [
         {
           opcode: 'test-receive',
           blockType: self.UCode.BlockType.STRING,
@@ -28,7 +32,7 @@ export class ExampleDeviceExtension {
           func: 'testReceiveMsg',
         },
       ],
-    };
+    }];
   }
 
   testSendMsg(args, util) {
