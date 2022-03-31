@@ -38,6 +38,10 @@ module.exports = class extends Generator {
             value: 'ble',
           },
           {
+            name: 'UDP/TCP协议 UDP/TCP',
+            value: 'udp_tcp',
+          },
+          {
             name: '烧录模式',
             value: 'uploadmode',
           },
@@ -107,6 +111,10 @@ module.exports = class extends Generator {
       // 如果不开启蓝牙
       this.ignore.push('**/*/devices/sp-device.?(js|ts)');
     }
+    if (!this.props.hardwareFeatures.includes('udp_tcp')) {
+      // 如果不开启UDP/TCP
+      this.ignore.push('**/*/devices/udp-tcp-device.?(js|ts)');
+    }
     const srcPath = path.join(__dirname, 'template/src', this.props.developFeatures.includes('typescript') ? 'ts-src' : 'js-src');
     this.fs.copyTpl(
       this.templatePath(srcPath),
@@ -132,6 +140,10 @@ module.exports = class extends Generator {
       // 如果不是 TypeScript 需要忽略这些文件
       this.ignore.push('**/*/types/*.d.ts');
       this.ignore.push('**/*/tsconfig.json');
+    }
+    if (!this.props.hardwareFeatures.includes('udp_tcp')) {
+      // 如果不开启UDP/TCP
+      this.ignore.push('**/*/udp-tcp-server');
     }
     const dir = path.join(__dirname, 'template/others/**/*.*');
     this.fs.copyTpl(
