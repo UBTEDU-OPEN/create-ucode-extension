@@ -18,7 +18,14 @@ describe('js-no-features', () => {
 
   it('creates files', () => {
     assert.file(['src', 'package.json', 'babel.config.js', 'src/index.js']);
-    assert.noFile(['tsconfig.json', 'types', 'src/index.ts', 'upload-mode', '.eslintrc.js']);
+    assert.noFile([
+      'tsconfig.json',
+      'types',
+      'src/index.ts',
+      'upload-mode',
+      '.eslintrc.js',
+      'udp-tcp-server/udp-tcp-server.js',
+    ]);
     assert.fileContent([
       ['static/manifest.json', /"id": "[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}"/], // 正确的 UUID
       ['static/manifest.json', `"name": "demo"`], // demo 名字
@@ -32,6 +39,8 @@ describe('js-no-features', () => {
       ['src/index.js', `spRegister,`], // 不包含串口协议代码
       ['src/index.js', `import { bleRegister } from './devices/ble-device';`], // 不包含蓝牙协议代码
       ['src/index.js', `bleRegister,`], // 不包含蓝牙协议代码
+      ['src/index.js', `import { tcpRegister } from './devices/udp-tcp-device';`], // 不包含UDP/TCP协议代码
+      ['src/index.js', `tcpRegister,`], // 不包含UDP/TCP协议代码
     ]);
   });
 });
@@ -51,7 +60,7 @@ describe('js-uploadmode', () => {
 
   it('creates files', () => {
     assert.file(['src', 'package.json', 'babel.config.js', 'src/index.js', 'src/upload-mode']);
-    assert.noFile(['tsconfig.json', 'types', 'src/index.ts']);
+    assert.noFile(['tsconfig.json', 'types', 'src/index.ts', 'udp-tcp-server/udp-tcp-server.js']);
     assert.fileContent([
       ['static/manifest.json', /"id": "[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}"/], // 正确的 UUID
       ['static/manifest.json', `"name": "demo"`], // demo 名字
@@ -65,6 +74,8 @@ describe('js-uploadmode', () => {
       ['src/index.js', `spRegister,`], // 不包含串口协议代码
       ['src/index.js', `import { bleRegister } from './devices/ble-device';`], // 不包含蓝牙协议代码
       ['src/index.js', `bleRegister,`], // 不包含蓝牙协议代码
+      ['src/index.js', `import { tcpRegister } from './devices/udp-tcp-device';`], // 不包含UDP/TCP协议代码
+      ['src/index.js', `tcpRegister,`], // 不包含UDP/TCP协议代码
     ]);
   });
 });
@@ -84,7 +95,7 @@ describe('js-eslint', () => {
 
   it('creates files', () => {
     assert.file(['src', 'package.json', 'babel.config.js', 'src/index.js', '.eslintrc.js']);
-    assert.noFile(['tsconfig.json', 'types', 'src/index.ts', 'src/upload-mode']);
+    assert.noFile(['tsconfig.json', 'types', 'src/index.ts', 'src/upload-mode', 'udp-tcp-server/udp-tcp-server.js']);
     assert.fileContent([
       ['static/manifest.json', /"id": "[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}"/], // 正确的 UUID
       ['static/manifest.json', `"name": "demo"`], // demo 名字
@@ -98,6 +109,8 @@ describe('js-eslint', () => {
       ['src/index.js', `spRegister,`], // 不包含串口协议代码
       ['src/index.js', `import { bleRegister } from './devices/ble-device';`], // 不包含蓝牙协议代码
       ['src/index.js', `bleRegister,`], // 不包含蓝牙协议代码
+      ['src/index.js', `import { tcpRegister } from './devices/udp-tcp-device';`], // 不包含UDP/TCP协议代码
+      ['src/index.js', `tcpRegister,`], // 不包含UDP/TCP协议代码
     ]);
   });
 });
@@ -112,7 +125,7 @@ describe('js-ble-sp', () => {
     return helpers.run(path.join(__dirname, '../generators/app')).withPrompts({
       name: 'demo',
       developFeatures: [],
-      hardwareFeatures: ['ble', 'serialport'],
+      hardwareFeatures: ['ble', 'serialport', 'udp_tcp'],
     });
   });
 
@@ -124,6 +137,7 @@ describe('js-ble-sp', () => {
       'src/index.js',
       'src/devices/sp-device.js',
       'src/devices/ble-device.js',
+      'udp-tcp-server/udp-tcp-server.js',
     ]);
     assert.noFile(['tsconfig.json', 'types', 'src/index.ts', 'upload-mode', '.eslintrc.js']);
     assert.fileContent([
@@ -134,6 +148,8 @@ describe('js-ble-sp', () => {
       ['src/index.js', `spRegister,`], // 包含串口协议代码
       ['src/index.js', `import { bleRegister } from './devices/ble-device';`], // 包含蓝牙协议代码
       ['src/index.js', `bleRegister,`], // 包含蓝牙协议代码
+      ['src/index.js', `import { tcpRegister } from './devices/udp-tcp-device';`], // UDP/TCP协议代码
+      ['src/index.js', `tcpRegister,`], // UDP/TCP协议代码
     ]);
     assert.noFileContent([
       ['babel.config.js', `'@babel/preset-typescript',`], // 不包含 typescript
@@ -155,7 +171,7 @@ describe('js-enable-uploadmode-ble-sp-eslint', () => {
     return helpers.run(path.join(__dirname, '../generators/app')).withPrompts({
       name: 'demo',
       developFeatures: ['eslint'],
-      hardwareFeatures: ['uploadmode', 'ble', 'serialport'],
+      hardwareFeatures: ['uploadmode', 'ble', 'serialport', 'udp_tcp'],
     });
   });
 
@@ -170,6 +186,7 @@ describe('js-enable-uploadmode-ble-sp-eslint', () => {
       'src/upload-mode',
       'src/upload-mode/uploader.js',
       '.eslintrc.js',
+      'udp-tcp-server/udp-tcp-server.js',
     ]);
     assert.noFile(['tsconfig.json', 'types', 'src/index.ts']);
     assert.fileContent([
@@ -182,6 +199,8 @@ describe('js-enable-uploadmode-ble-sp-eslint', () => {
       ['src/index.js', `spRegister,`], // 串口协议代码
       ['src/index.js', `import { bleRegister } from './devices/ble-device';`], // 蓝牙协议代码
       ['src/index.js', `bleRegister,`], // 蓝牙协议代码
+      ['src/index.js', `import { tcpRegister } from './devices/udp-tcp-device';`], // UDP/TCP协议代码
+      ['src/index.js', `tcpRegister,`], // UDP/TCP协议代码
     ]);
     assert.noFileContent([
       ['babel.config.js', `'@babel/preset-typescript',`], // 不包含 typescript
@@ -200,7 +219,7 @@ describe('enable-ts', () => {
 
   it('creates files', () => {
     assert.file(['src', 'package.json', 'babel.config.js', 'src/index.ts', 'tsconfig.json', 'types']);
-    assert.noFile(['src/index.js', 'src/upload-mode', '.eslintrc.js']);
+    assert.noFile(['src/index.js', 'src/upload-mode', '.eslintrc.js', 'udp-tcp-server/udp-tcp-server.js']);
     assert.fileContent([
       ['static/manifest.json', /"id": "[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}"/], // 正确的 UUID
       ['static/manifest.json', `"name": "demo"`], // demo 名字
@@ -214,6 +233,8 @@ describe('enable-ts', () => {
       ['src/index.ts', `spRegister,`], // 不包含串口协议代码
       ['src/index.ts', `import { bleRegister } from './devices/ble-device';`], // 不包含蓝牙协议代码
       ['src/index.ts', `bleRegister,`], // 不包含蓝牙协议代码
+      ['src/index.ts', `import { tcpRegister } from './devices/udp-tcp-device';`], // 不包含UDP/TCP协议代码
+      ['src/index.ts', `tcpRegister,`], // 不包含UDP/TCP协议代码
     ]);
   });
 });
@@ -229,7 +250,7 @@ describe('enable-ts-eslint', () => {
 
   it('creates files', () => {
     assert.file(['src', 'package.json', 'babel.config.js', 'src/index.ts', 'tsconfig.json', 'types', '.eslintrc.js']);
-    assert.noFile(['src/index.js', 'src/upload-mode']);
+    assert.noFile(['src/index.js', 'src/upload-mode', 'udp-tcp-server/udp-tcp-server.js']);
     assert.fileContent([
       ['static/manifest.json', /"id": "[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}"/], // 正确的 UUID
       ['static/manifest.json', `"name": "demo"`], // demo 名字
@@ -243,6 +264,8 @@ describe('enable-ts-eslint', () => {
       ['src/index.ts', `spRegister,`], // 不包含串口协议代码
       ['src/index.ts', `import { bleRegister } from './devices/ble-device';`], // 不包含蓝牙协议代码
       ['src/index.ts', `bleRegister,`], // 不包含蓝牙协议代码
+      ['src/index.ts', `import { tcpRegister } from './devices/udp-tcp-device';`], // 不包含UDP/TCP协议代码
+      ['src/index.ts', `tcpRegister,`], // 不包含UDP/TCP协议代码
     ]);
   });
 });
