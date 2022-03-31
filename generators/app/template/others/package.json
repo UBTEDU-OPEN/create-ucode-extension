@@ -20,7 +20,7 @@
     "watch": "yarn webpack --watch"
   },
   "dependencies": {
-    "@ubtech/ucode-extension-common-sdk": "^1.0.0"
+    "@ubtech/ucode-extension-common-sdk": "latest"
   },
   "devDependencies": {
   <%_ if (developFeatures.includes('eslint')) { _%>
