@@ -6,10 +6,14 @@ import { bleRegister } from './devices/ble-device';
 <%_ if (hardwareFeatures.includes('serialport')) { _%>
 import { spRegister } from './devices/sp-device';
 <%_ } _%>
+<%_ if (hardwareFeatures.includes('udp_tcp')) { _%>
+import { tcpRegister } from './devices/udp-tcp-device';
+<%_ } _%>
 import { WebsocketRegister } from './devices/websocket-device';
 <%_ if (hardwareFeatures.includes('uploadmode')) { _%>
 import { UploadModeRegister } from './upload-mode';
 <%_ } _%>
+
 const { injectRpcClient } = UCodeLinkAPI;
 
 console.log('初始化硬件插件', "<%= name %>");
@@ -23,6 +27,9 @@ const register = {
 <%_ } _%>
 <%_ if (hardwareFeatures.includes('serialport')) { _%>
     spRegister,
+<%_ } _%>
+<%_ if (hardwareFeatures.includes('udp_tcp')) { _%>
+    tcpRegister,
 <%_ } _%>
     WebsocketRegister,
   ],

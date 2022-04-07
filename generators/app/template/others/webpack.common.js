@@ -45,4 +45,7 @@ module.exports = {
       ],
     }),
   ],
+  externals: {
+    '@ubtech/ucode-extension-common-sdk': 'UCodeExtensionCommonSDK',
+  },
 };
