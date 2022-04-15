@@ -16,7 +16,7 @@ import { UploadModeRegister } from './upload-mode';
 
 const { injectRpcClient } = UCodeLinkAPI;
 
-console.log('初始化硬件插件', "<%= name %>");
+console.log('初始化硬件插件', '<%= name %>');
 
 injectRpcClient();
 

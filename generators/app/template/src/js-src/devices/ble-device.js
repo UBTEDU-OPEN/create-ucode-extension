@@ -3,10 +3,10 @@ import { CommonProtocols } from '@ubtech/ucode-extension-common-sdk';
 const { UCodeBleProtocol, getUCodeBleDeviceRegister } = CommonProtocols.BLE;
 
 class DemoWebbleDevice extends UCodeBleProtocol {
- /**
- * 蓝牙 构造函数
- * @param {Object} args uCode 初始化的时候会注入的函数或者变量
- */
+  /**
+   * 蓝牙 构造函数
+   * @param {Object} args uCode 初始化的时候会注入的函数或者变量
+   */
   constructor(args) {
     super(args);
     this.onData(this.receiveMsg.bind(this)); // 绑定接收消息的事件
@@ -14,25 +14,25 @@ class DemoWebbleDevice extends UCodeBleProtocol {
 
   /**
    * 发送消息
-   * @param {string | Buffer} data 
+   * @param {string | Buffer} data
    */
   sendMsg(data) {
     this.send(Buffer.from(data));
   }
 
- /**
- * 蓝牙接收的数据体
- * @typedef {Object} CommonBleDataType
- * @property {string} uuid - 蓝牙 read 特征值的 uuid
- * @property {Buffer} data - 数据
- */
+  /**
+   * 蓝牙接收的数据体
+   * @typedef {Object} CommonBleDataType
+   * @property {string} uuid - 蓝牙 read 特征值的 uuid
+   * @property {Buffer} data - 数据
+   */
 
   /**
    * 当接收到消息后, 会调用该方法
-   * @param {CommonBleDataType} data 
+   * @param {CommonBleDataType} data
    */
   receiveMsg(data) {
-    console.log(data.uuid, data.data);   
+    console.log(data.uuid, data.data);
   }
 }
 
