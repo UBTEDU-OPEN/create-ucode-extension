@@ -1,4 +1,4 @@
-import { CommonProtocols } from "@ubtech/ucode-extension-common-sdk";
+import { CommonProtocols } from '@ubtech/ucode-extension-common-sdk';
 
 const { TCPClientConnection, getTCPDeviceRegister } = CommonProtocols.TCP;
 const { UDPSocketType, UDPDiscover, getUDPDeviceType } = CommonProtocols.UDP;
@@ -8,7 +8,6 @@ const scanTimeTimeout = 20; // 扫描超时20秒
  * 连接通信类子类，根据业务需求覆写父类方法或实现抽象方法
  */
 export class MyTCPClientConnection extends TCPClientConnection {
-
   constructor(args) {
     super(args);
   }
@@ -60,11 +59,11 @@ export class MyTCPClientConnection extends TCPClientConnection {
       const timeoutDispose = setTimeout(() => {
         // 超时处理
         disposeObj.dispose?.();
-        reject(new Error("timeout"));
+        reject(new Error('timeout'));
       }, timeout);
       const disposeObj = this.onData((msg) => {
         // 监听消息会返回一个 dispose
-        console.log("receive msg", msg, typeof msg);
+        console.log('receive msg', msg, typeof msg);
         clearTimeout(timeoutDispose); // 清空 timeout
         disposeObj.dispose?.(); // 收到想要的消息, 清理掉事件
         resolve(msg); // 返回消息
@@ -108,7 +107,7 @@ export const tcpRegister = getTCPDeviceRegister({
       // scanTime?: number; // 扫描超时
       // queueOptions?: QueueConstructorType; // 队列参数，可以设置 队列 发送的 间隔 或者 数量
       udpConstructorOptions: UDPSocketType.udp4,
-      sendMsgForResponse: Buffer.from("A"),
+      sendMsgForResponse: Buffer.from('A'),
       bindPort: 65432,
       scanTime: scanTimeTimeout, // 扫描时长
       customDeviceName: (deviceData) => {
@@ -120,7 +119,7 @@ export const tcpRegister = getTCPDeviceRegister({
         } catch (error) {
           console.log(error);
         }
-        return "Robot";
+        return 'Robot';
       },
     },
     connectionOptions: {

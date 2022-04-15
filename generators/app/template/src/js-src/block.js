@@ -1,42 +1,45 @@
-import { ExtensionUI } from "@ubtech/ucode-extension-common-sdk";
+import { ExtensionUI } from '@ubtech/ucode-extension-common-sdk';
 
 const { Toast } = ExtensionUI;
 
 export class ExampleDeviceExtension {
   getInfo() {
-    return [{
-      name: '发送',
-      blocks: [
-        {
-          opcode: 'test-send',
-          blockType: self.UCode.BlockType.COMMAND,
-          arguments: {
-            TEXT: {
-              type: self.UCode.ArgumentType.STRING,
-              defaultValue: 'hello',
+    return [
+      {
+        name: '发送',
+        blocks: [
+          {
+            opcode: 'test-send',
+            blockType: self.UCode.BlockType.COMMAND,
+            arguments: {
+              TEXT: {
+                type: self.UCode.ArgumentType.STRING,
+                defaultValue: 'hello',
+              },
             },
+            text: '发送消息: [TEXT]',
+            func: 'testSendMsg',
           },
-          text: '发送消息: [TEXT]',
-          func: 'testSendMsg',
-        },
-      ],
-    }, {
-      name: '接收',
-      blocks: [
-        {
-          opcode: 'test-receive',
-          blockType: self.UCode.BlockType.REPORTER,
-          arguments: {
-            TEXT: {
-              type: self.UCode.ArgumentType.STRING,
-              defaultValue: 'hello',
+        ],
+      },
+      {
+        name: '接收',
+        blocks: [
+          {
+            opcode: 'test-receive',
+            blockType: self.UCode.BlockType.REPORTER,
+            arguments: {
+              TEXT: {
+                type: self.UCode.ArgumentType.STRING,
+                defaultValue: 'hello',
+              },
             },
+            text: '接收消息: [TEXT]',
+            func: 'testReceiveMsg',
           },
-          text: '接收消息: [TEXT]',
-          func: 'testReceiveMsg',
-        },
-      ],
-    }];
+        ],
+      },
+    ];
   }
 
   testSendMsg(args, util) {
@@ -64,7 +67,8 @@ export class ExampleDeviceExtension {
         resolve('');
       } else {
         console.log('test-receive', args.TEXT);
-        device.sendAndWait(args.TEXT)
+        device
+          .sendAndWait(args.TEXT)
           .then((data) => resolve(data))
           .catch(() => resolve(''));
       }
