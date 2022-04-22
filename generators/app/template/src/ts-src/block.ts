@@ -1,13 +1,18 @@
 import { ExtensionUI } from '@ubtech/ucode-extension-common-sdk';
+import type { ExternalHardwareGetInfo } from '@ubtech/ucode-extension-common-sdk/types';
 import { WebsocketDevice } from './devices/websocket-device';
 
 const { Toast } = ExtensionUI;
 
 export class ExampleDeviceExtension {
-  getInfo() {
+  getInfo(): ExternalHardwareGetInfo | ExternalHardwareGetInfo[] {
     return [
       {
+        // category-1
         name: '发送',
+        color1: '#0FBD8C',
+        color2: '#0DA57A',
+        color3: '#0B8E69',
         blocks: [
           {
             opcode: 'test-send',
@@ -24,7 +29,11 @@ export class ExampleDeviceExtension {
         ],
       },
       {
+        // category-2
         name: '接收',
+        color1: '#0FBD8C',
+        color2: '#0DA57A',
+        color3: '#0B8E69',
         blocks: [
           {
             opcode: 'test-receive',
