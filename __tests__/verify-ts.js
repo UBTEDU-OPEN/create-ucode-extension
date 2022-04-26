@@ -13,7 +13,13 @@ describe('ts-test', () => {
       hardwareFeatures: [],
     });
     helper.file(['package.json', 'babel.config.js', 'src/index.ts', 'tsconfig.json', 'types/ucode.d.ts']);
-    helper.noFile(['src/index.js', 'src/upload-mode/uploader.ts', '.eslintrc.js', 'udp-tcp-server/udp-tcp-server.js']);
+    helper.noFile([
+      'src/index.js',
+      'src/upload-mode/uploader.ts',
+      '.eslintrc.js',
+      'udp-tcp-server/udp-tcp-server.js',
+      'src/components/example.tsx',
+    ]);
     helper.fileContent([
       ['static/manifest.json', /"id": "[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}"/], // 正确的 UUID
       ['static/manifest.json', `"name": "demo"`], // demo 名字
@@ -21,6 +27,7 @@ describe('ts-test', () => {
       ['babel.config.js', `'@babel/preset-typescript',`], // 包含 typescript
     ]);
     helper.noFileContent([
+      ['babel.config.js', `'@babel/preset-react',`], // 不包含 react
       ['src/index.ts', `import { UploadModeRegister } from './upload-mode';`], // 不包含烧录模式代码
       ['src/index.ts', `UploadModeRegister,`], // 不包含烧录模式代码
       ['src/index.ts', `import { spRegister } from './devices/sp-device';`], // 不包含串口协议代码
@@ -29,6 +36,7 @@ describe('ts-test', () => {
       ['src/index.ts', `bleRegister,`], // 不包含蓝牙协议代码
       ['src/index.ts', `import { tcpRegister } from './devices/udp-tcp-device';`], // 不包含UDP/TCP协议代码
       ['src/index.ts', `tcpRegister,`], // 不包含UDP/TCP协议代码
+      ['src/index.ts', `import { DemoComp } from './components/example';`], // 不包含自定义UI代码
     ]);
   });
 
@@ -146,6 +154,7 @@ describe('ts-test', () => {
    * 蓝牙
    * 串口
    * TCP/UDP
+   * custom-ui
    * Eslint
    */
   describe('ts-uploadmode-ble-sp-tcp-eslint', () => {
@@ -153,7 +162,7 @@ describe('ts-test', () => {
     helper.run({
       name: 'demo',
       developFeatures: ['typescript', 'eslint'],
-      hardwareFeatures: ['uploadmode', 'ble', 'serialport', 'udp_tcp'],
+      hardwareFeatures: ['uploadmode', 'ble', 'serialport', 'udp_tcp', 'custom_ui'],
     });
     helper.file([
       'package.json',
@@ -166,6 +175,7 @@ describe('ts-test', () => {
       'src/upload-mode/uploader.ts',
       '.eslintrc.js',
       'udp-tcp-server/udp-tcp-server.js',
+      'src/components/example.tsx',
     ]);
     helper.noFile(['src/index.js']);
     helper.fileContent([
@@ -181,6 +191,7 @@ describe('ts-test', () => {
       ['src/index.ts', `bleRegister,`], // 蓝牙协议代码
       ['src/index.ts', `import { tcpRegister } from './devices/udp-tcp-device';`], // UDP/TCP协议代码
       ['src/index.ts', `tcpRegister,`], // UDP/TCP协议代码
+      ['src/index.ts', `import { DemoComp } from './components/example';`], // 包含自定义UI代码
     ]);
     helper.noFileContent([]);
   });

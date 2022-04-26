@@ -8,6 +8,7 @@
   HardwareDeviceConstructorArgumentType,
   DeviceEventbusInterface,
   UCode,
+  DeviceType,
 } from '@ubtech/ucode-extension-common-sdk/types';
 
 export class WebsocketDevice implements DeviceConnectionInterface {
@@ -17,8 +18,11 @@ export class WebsocketDevice implements DeviceConnectionInterface {
 
   public connectStatus: UCode.DeviceConnectStatusUnionType = self.UCode.Constant.ConnectStatus.Disconnected;
 
+  deviceType?: DeviceType | undefined;
+
   constructor(injectArgs: HardwareDeviceConstructorArgumentType) {
     this.eventbus = injectArgs.eventbus;
+    this.deviceType = injectArgs.deviceType;
   }
 
   /**

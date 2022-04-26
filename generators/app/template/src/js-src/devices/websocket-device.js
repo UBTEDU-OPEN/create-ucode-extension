@@ -11,6 +11,7 @@
     this.ws = undefined;
     this.connectStatus = self.UCode.Constant.ConnectStatus.Disconnected;
     this.eventbus = injectArgs.eventbus;
+    this.deviceType = injectArgs.deviceType;
   }
 
   /**

@@ -21,6 +21,7 @@ describe('js-test', () => {
       'upload-mode',
       '.eslintrc.js',
       'udp-tcp-server/udp-tcp-server.js',
+      'src/components/example.jsx',
     ]);
     helper.fileContent([
       ['static/manifest.json', /"id": "[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}"/], // 正确的 UUID
@@ -29,6 +30,7 @@ describe('js-test', () => {
     ]);
     helper.noFileContent([
       ['babel.config.js', `'@babel/preset-typescript',`], // 不包含 typescript
+      ['babel.config.js', `'@babel/preset-react',`], // 不包含 react
       ['src/index.js', `import { UploadModeRegister } from './upload-mode';`], // 不包含烧录模式代码
       ['src/index.js', `UploadModeRegister,`], // 不包含烧录模式代码
       ['src/index.js', `import { spRegister } from './devices/sp-device';`], // 不包含串口协议代码
@@ -37,6 +39,7 @@ describe('js-test', () => {
       ['src/index.js', `bleRegister,`], // 不包含蓝牙协议代码
       ['src/index.js', `import { tcpRegister } from './devices/udp-tcp-device';`], // 不包含UDP/TCP协议代码
       ['src/index.js', `tcpRegister,`], // 不包含UDP/TCP协议代码
+      ['src/index.js', `import { DemoComp } from './components/example';`], // 不包含自定义UI代码
     ]);
   });
 
@@ -153,6 +156,7 @@ describe('js-test', () => {
    * 串口
    * TCP/UDP
    * 烧录
+   * custom-ui
    * eslint
    */
   test('js-enable-uploadmode-ble-sp-tcp-eslint', () => {
@@ -160,7 +164,7 @@ describe('js-test', () => {
     helper.run({
       name: 'demo',
       developFeatures: ['eslint'],
-      hardwareFeatures: ['uploadmode', 'ble', 'serialport', 'udp_tcp'],
+      hardwareFeatures: ['uploadmode', 'ble', 'serialport', 'udp_tcp', 'custom_ui'],
     });
     helper.file([
       'package.json',
@@ -172,6 +176,7 @@ describe('js-test', () => {
       'src/upload-mode/uploader.js',
       '.eslintrc.js',
       'udp-tcp-server/udp-tcp-server.js',
+      'src/components/example.jsx',
     ]);
     helper.noFile(['tsconfig.json', 'types', 'src/index.ts']);
     helper.fileContent([
@@ -186,6 +191,10 @@ describe('js-test', () => {
       ['src/index.js', `bleRegister,`], // 蓝牙协议代码
       ['src/index.js', `import { tcpRegister } from './devices/udp-tcp-device';`], // UDP/TCP协议代码
       ['src/index.js', `tcpRegister,`], // UDP/TCP协议代码
+      ['src/index.js', `import { DemoComp } from './components/example';`], // 包含自定义UI代码
+    ]);
+    helper.fileContent([
+      ['babel.config.js', `'@babel/preset-react',`], // 包含 react
     ]);
     helper.noFileContent([
       ['babel.config.js', `'@babel/preset-typescript',`], // 不包含 typescript

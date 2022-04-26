@@ -13,6 +13,9 @@ import { WebsocketRegister } from './devices/websocket-device';
 <%_ if (hardwareFeatures.includes('uploadmode')) { _%>
 import { UploadModeRegister } from './upload-mode';
 <%_ } _%>
+<%_ if (hardwareFeatures.includes('custom_ui')) { _%>
+import { DemoComp } from './components/example';
+<%_ } _%>
 
 const { injectRpcClient } = UCodeLinkAPI;
 
@@ -36,6 +39,19 @@ const register = {
   BlockRegister: ExampleDeviceExtension,
 <%_ if (hardwareFeatures.includes('uploadmode')) { _%>
   UploadModeRegister,
+<%_ } _%>
+<%_ if (hardwareFeatures.includes('custom_ui')) { _%>
+  SettingMenuRegister: {
+    myMenu: {
+      name: '我的组件',
+      icon: '',
+      type: 'component',
+      component: DemoComp,
+      additionalData: {
+        title: '我的组件',
+      },
+    },
+  },
 <%_ } _%>
 };
 

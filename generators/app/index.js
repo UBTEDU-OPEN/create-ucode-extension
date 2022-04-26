@@ -88,9 +88,12 @@ class Generator {
   }
 
   _ignoreFiles() {
+    if (!this.props.hardwareFeatures.includes('custom_ui')) {
+      // 如果支持 自定义组件
+      this.ignore.push('**/*/components/**/*.*');
+    }
     if (!this.props.hardwareFeatures.includes('uploadmode')) {
       // 如果不支持烧录模式, 则忽略 以下文件
-      this.ignore.push('**/*/upload-mode/**/*.*');
       this.ignore.push('**/*/upload-mode/**/*.*');
     }
 

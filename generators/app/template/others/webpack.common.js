@@ -19,7 +19,7 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: ['.js', '.ts'],
+    extensions: ['.js', '.ts', '.jsx', '.tsx'],
     alias: {},
     fallback: {
       stream: require.resolve('stream-browserify'),
@@ -47,5 +47,7 @@ module.exports = {
   ],
   externals: {
     '@ubtech/ucode-extension-common-sdk': 'UCodeExtensionCommonSDK',
+    react: 'React',
+    'react-dom': 'ReactDOM',
   },
 };

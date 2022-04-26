@@ -42,6 +42,10 @@ function prompt(isDebug = false) {
               name: '烧录模式',
               value: 'uploadmode',
             },
+            {
+              name: '自定义 UI 组件 *(Beta)',
+              value: 'custom_ui',
+            },
           ],
         },
         {
@@ -59,10 +63,24 @@ function prompt(isDebug = false) {
             },
           ],
         },
+        {
+          type: 'confirm',
+          name: 'betaEnable',
+          message: '是否要启用 Beta 特性, 正式版本可能会不兼容? (选否, 会去掉beta特性)',
+          when(results) {
+            if (results.hardwareFeatures.includes('custom_ui')) {
+              return true;
+            }
+          },
+        },
       ])
       .then((answers) => {
-        // Use user feedback for... whatever!!
-        // console.log(answers);
+        if (!answers.betaEnable) {
+          const index = answers.hardwareFeatures.indexOf('custom_ui');
+          if (index > -1) {
+            answers.hardwareFeatures.splice(index, 1);
+          }
+        }
         resolve(answers);
       })
       .catch((error) => {

@@ -37,6 +37,11 @@
     "typescript": "^4.5.5",
     "@babel/preset-typescript": "^7.16.7",
   <%_ } _%>
+  <%_ if (hardwareFeatures.includes('custom_ui')) { _%>
+    "@babel/preset-react": "^7.16.7",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
+  <%_ } _%>
     "@babel/core": "^7.16.12",
     "@babel/preset-env": "^7.16.11",
     "babel-loader": "8.2.3",
