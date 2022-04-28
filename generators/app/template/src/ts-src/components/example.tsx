@@ -1,7 +1,7 @@
 import React from 'react';
-import { HWReactComponent } from '@ubtech/ucode-extension-common-sdk/types';
+import { UCodeExternalHardwareDefination } from '@ubtech/ucode-extension-common-sdk/types';
 
-export const DemoComp: HWReactComponent = (props) => {
+export const DemoComp: UCodeExternalHardwareDefination.ReactComponent = (props) => {
   console.log(props.getDevice());
   return (
     <h1>
