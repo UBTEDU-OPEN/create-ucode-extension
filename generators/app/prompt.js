@@ -24,7 +24,7 @@ function prompt(isDebug = false) {
         {
           type: 'checkbox',
           name: 'hardwareFeatures',
-          message: '要开启的硬件功能',
+          message: '要集成的特性',
           choices: [
             {
               name: '串口协议 SerialPort',
