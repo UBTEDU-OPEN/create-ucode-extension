@@ -1,4 +1,5 @@
 import { UCodeLinkAPI } from '@ubtech/ucode-extension-common-sdk';
+import { ExternalHardwareExtensionRegister } from '@ubtech/ucode-extension-common-sdk/types';
 import { ExampleDeviceExtension } from './block';
 <%_ if (hardwareFeatures.includes('ble')) { _%>
 import { bleRegister } from './devices/ble-device';
@@ -20,7 +21,7 @@ console.log('初始化硬件插件', '<%= name %>');
 
 injectRpcClient();
 
-const register = {
+const register: ExternalHardwareExtensionRegister = {
   DeviceRegister: [
 <%_ if (hardwareFeatures.includes('ble')) { _%>
     bleRegister,
