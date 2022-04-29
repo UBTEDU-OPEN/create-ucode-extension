@@ -1,11 +1,11 @@
 import { ExtensionUI } from '@ubtech/ucode-extension-common-sdk';
-import type { ExternalHardwareGetInfo } from '@ubtech/ucode-extension-common-sdk/types';
+import type { UCodeExternalHardwareDefination } from '@ubtech/ucode-extension-common-sdk/types';
 import { WebsocketDevice } from './devices/websocket-device';
 
 const { Toast } = ExtensionUI;
 
 export class ExampleDeviceExtension {
-  getInfo(): ExternalHardwareGetInfo | ExternalHardwareGetInfo[] {
+  getInfo(): UCodeExternalHardwareDefination.GetInfo | UCodeExternalHardwareDefination.GetInfo[] {
     return [
       {
         // category-1
