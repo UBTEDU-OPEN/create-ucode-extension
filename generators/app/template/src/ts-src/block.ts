@@ -1,43 +1,55 @@
-import { ExtensionUI } from "@ubtech/ucode-extension-common-sdk";
+import { ExtensionUI } from '@ubtech/ucode-extension-common-sdk';
+import type { ExternalHardwareGetInfo } from '@ubtech/ucode-extension-common-sdk/types';
 import { WebsocketDevice } from './devices/websocket-device';
 
 const { Toast } = ExtensionUI;
 
 export class ExampleDeviceExtension {
-  getInfo() {
-    return [{
-      name: '发送',
-      blocks: [
-        {
-          opcode: 'test-send',
-          blockType: self.UCode.BlockType.COMMAND,
-          arguments: {
-            TEXT: {
-              type: self.UCode.ArgumentType.STRING,
-              defaultValue: 'hello',
+  getInfo(): ExternalHardwareGetInfo | ExternalHardwareGetInfo[] {
+    return [
+      {
+        // category-1
+        name: '发送',
+        color1: '#0FBD8C',
+        color2: '#0DA57A',
+        color3: '#0B8E69',
+        blocks: [
+          {
+            opcode: 'test-send',
+            blockType: self.UCode.BlockType.COMMAND,
+            arguments: {
+              TEXT: {
+                type: self.UCode.ArgumentType.STRING,
+                defaultValue: 'hello',
+              },
             },
+            text: '发送消息: [TEXT]',
+            func: 'testSendMsg',
           },
-          text: '发送消息: [TEXT]',
-          func: 'testSendMsg',
-        },
-      ],
-    }, {
-      name: '接收',
-      blocks: [
-        {
-          opcode: 'test-receive',
-          blockType: self.UCode.BlockType.REPORTER,
-          arguments: {
-            TEXT: {
-              type: self.UCode.ArgumentType.STRING,
-              defaultValue: 'hello',
+        ],
+      },
+      {
+        // category-2
+        name: '接收',
+        color1: '#0FBD8C',
+        color2: '#0DA57A',
+        color3: '#0B8E69',
+        blocks: [
+          {
+            opcode: 'test-receive',
+            blockType: self.UCode.BlockType.REPORTER,
+            arguments: {
+              TEXT: {
+                type: self.UCode.ArgumentType.STRING,
+                defaultValue: 'hello',
+              },
             },
+            text: '接收消息: [TEXT]',
+            func: 'testReceiveMsg',
           },
-          text: '接收消息: [TEXT]',
-          func: 'testReceiveMsg',
-        },
-      ],
-    }];
+        ],
+      },
+    ];
   }
 
   testSendMsg(args: { [key: string]: any }, util: { targetId: string }): Promise<void> {

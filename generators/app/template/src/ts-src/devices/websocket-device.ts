@@ -2,7 +2,7 @@
  * 示例 硬件连接
  */
 
- import {
+import {
   DeviceRegisterType,
   DeviceConnectionInterface,
   HardwareDeviceConstructorArgumentType,

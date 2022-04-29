@@ -1,8 +1,7 @@
 /**
  * 示例 自定义 硬件连接
  */
- export class WebsocketDevice {
-
+export class WebsocketDevice {
   /**
    * 构造函数
    * @param {Object} args 初始化的时候会注入的函数或者变量, 不要修改, 或者抹掉
@@ -41,12 +40,12 @@
       const timeoutDispose = setTimeout(() => {
         // 超时处理
         disposeObj.dispose?.();
-        reject(new Error("timeout"));
+        reject(new Error('timeout'));
       }, timeout);
       const disposeObj = this.onData((evt) => {
         // 监听消息会返回一个 dispose
         const msg = evt.data;
-        console.log("receive msg", msg, typeof msg);
+        console.log('receive msg', msg, typeof msg);
         clearTimeout(timeoutDispose); // 清空 timeout
         disposeObj.dispose?.(); // 收到想要的消息, 清理掉事件
         resolve(msg); // 返回消息
@@ -56,9 +55,9 @@
   }
 
   onData(listener) {
-    this.ws?.addEventListener("message", listener);
+    this.ws?.addEventListener('message', listener);
     return {
-      dispose: () => this.ws?.removeEventListener("message", listener),
+      dispose: () => this.ws?.removeEventListener('message', listener),
     };
   }
 
@@ -75,13 +74,13 @@
    * @returns {Promise<void>}
    */
   connect() {
-    console.log("worker demo connect device ");
+    console.log('worker demo connect device ');
     return new Promise((resolve, reject) => {
-      const ip = "localhost";
+      const ip = 'localhost';
       this.ws = new WebSocket(`ws://${ip}:8800`);
       this.ws.onopen = () => resolve();
       this.ws.onclose = () => {
-        console.log("ws close");
+        console.log('ws close');
         this.eventbus.dispatchDisconnect();
         this.connectStatus = self.UCode.Constant.ConnectStatus.Disconnected;
       };
@@ -119,8 +118,8 @@
  */
 export const WebsocketRegister = {
   DeviceType: {
-    id: "websocket",
-    name: "socket连接",
+    id: 'websocket',
+    name: 'socket连接',
   },
   DeviceConnection: WebsocketDevice,
 };
