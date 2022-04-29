@@ -15,10 +15,9 @@
     "lint:fix": "eslint --ext .js,.jsx,.ts,.tsx src --quiet --fix",
   <%_ } _%>
     "clean": "rimraf dist/*",
-    "validate:manifest": "node .dev/validate_manifest.js",
-    "compile:dev": "npm run validate:manifest && webpack --progress --config webpack.dev.js",
-    "compile": "npm run validate:manifest && webpack --progress --config webpack.prod.js",
-    "watch": "webpack --watch",
+    "compile:dev": "webpack --progress --config webpack.dev.js",
+    "compile": "webpack --progress --config webpack.prod.js",
+    "dev": "webpack --progress --config webpack.debug.js",
   <%_ if (hardwareFeatures.includes('udp_tcp')) { _%>
     "dev:udp_tcp": "node .dev/udp-tcp-server/udp-tcp-server.js",
   <%_ } _%>
