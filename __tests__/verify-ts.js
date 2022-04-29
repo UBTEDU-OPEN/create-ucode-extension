@@ -17,7 +17,7 @@ describe('ts-test', () => {
       'src/index.js',
       'src/upload-mode/uploader.ts',
       '.eslintrc.js',
-      'udp-tcp-server/udp-tcp-server.js',
+      '.dev/udp-tcp-server/udp-tcp-server.js',
       'src/components/example.tsx',
     ]);
     helper.fileContent([
@@ -52,7 +52,7 @@ describe('ts-test', () => {
       hardwareFeatures: [],
     });
     helper.file(['package.json', 'babel.config.js', 'src/index.ts', 'tsconfig.json', 'types/ucode.d.ts', '.eslintrc.js']);
-    helper.noFile(['src/index.js', 'src/upload-mode/uploader.ts', 'udp-tcp-server/udp-tcp-server.js']);
+    helper.noFile(['src/index.js', 'src/upload-mode/uploader.ts', '.dev/udp-tcp-server/udp-tcp-server.js']);
     helper.fileContent([
       ['static/manifest.json', /"id": "[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}"/], // 正确的 UUID
       ['static/manifest.json', `"name": "demo"`], // demo 名字
@@ -91,7 +91,7 @@ describe('ts-test', () => {
       'types/ucode.d.ts',
       'src/devices/ble-device.ts',
       'src/devices/sp-device.ts',
-      'udp-tcp-server/udp-tcp-server.js',
+      '.dev/udp-tcp-server/udp-tcp-server.js',
     ]);
     helper.noFile(['src/index.js', '.eslintrc.js']);
     helper.fileContent([
@@ -130,7 +130,7 @@ describe('ts-test', () => {
       'types/ucode.d.ts',
       'src/upload-mode/uploader.ts',
     ]);
-    helper.noFile(['src/index.js', '.eslintrc.js', 'udp-tcp-server/udp-tcp-server.js']);
+    helper.noFile(['src/index.js', '.eslintrc.js', '.dev/udp-tcp-server/udp-tcp-server.js']);
     helper.fileContent([
       ['static/manifest.json', /"id": "[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}"/], // 正确的 UUID
       ['static/manifest.json', `"name": "demo"`], // demo 名字
@@ -174,7 +174,7 @@ describe('ts-test', () => {
       'src/devices/sp-device.ts',
       'src/upload-mode/uploader.ts',
       '.eslintrc.js',
-      'udp-tcp-server/udp-tcp-server.js',
+      '.dev/udp-tcp-server/udp-tcp-server.js',
       'src/components/example.tsx',
     ]);
     helper.noFile(['src/index.js']);

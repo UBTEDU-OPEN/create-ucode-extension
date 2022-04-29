@@ -15,9 +15,14 @@
     "lint:fix": "eslint --ext .js,.jsx,.ts,.tsx src --quiet --fix",
   <%_ } _%>
     "clean": "rimraf dist/*",
-    "compile:dev": "yarn webpack --progress --config webpack.dev.js",
-    "compile": "yarn webpack --progress --config webpack.prod.js",
-    "watch": "yarn webpack --watch"
+    "validate:manifest": "node .dev/validate_manifest.js",
+    "compile:dev": "npm run validate:manifest && webpack --progress --config webpack.dev.js",
+    "compile": "npm run validate:manifest && webpack --progress --config webpack.prod.js",
+    "watch": "webpack --watch",
+  <%_ if (hardwareFeatures.includes('udp_tcp')) { _%>
+    "dev:udp_tcp": "node .dev/udp-tcp-server/udp-tcp-server.js",
+  <%_ } _%>
+    "dev:websocket": "node .dev/ws-server/server.js"
   },
   "dependencies": {
     "@ubtech/ucode-extension-common-sdk": "latest"
@@ -54,6 +59,7 @@
     "webpack": "5.45.1",
     "webpack-cli": "4.7.2",
     "webpack-merge": "^5.8.0",
-    "ws": "^8.5.0"
+    "ws": "^8.5.0",
+    "ajv": "^8.11.0"
   }
 }
