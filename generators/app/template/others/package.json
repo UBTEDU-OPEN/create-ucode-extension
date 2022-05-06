@@ -4,62 +4,22 @@
   "version": "0.0.1",
   "license": "MIT",
   "main": "dist/main.js",
-  <%_ if (developFeatures.includes('eslint')) { _%>
   "engines" : {
     "node" : ">=16.0.0"
   },
-  <%_ } _%>
   "scripts": {
   <%_ if (developFeatures.includes('eslint')) { _%>
     "lint": "eslint --ext .js,.jsx,.ts,.tsx src --quiet",
     "lint:fix": "eslint --ext .js,.jsx,.ts,.tsx src --quiet --fix",
   <%_ } _%>
-    "clean": "rimraf dist/*",
-    "compile:dev": "webpack --progress --config webpack.dev.js",
-    "compile": "webpack --progress --config webpack.prod.js",
-    "dev": "webpack --progress --config webpack.debug.js",
-  <%_ if (hardwareFeatures.includes('udp_tcp')) { _%>
-    "dev:udp_tcp": "node .dev/udp-tcp-server/udp-tcp-server.js",
-  <%_ } _%>
-    "dev:websocket": "node .dev/ws-server/server.js"
+    "compile:dev": "cua-build-dev",
+    "compile": "cua-build-prod",
+    "dev": "cua-debug"
   },
   "dependencies": {
     "@ubtech/ucode-extension-common-sdk": "latest"
   },
   "devDependencies": {
-  <%_ if (developFeatures.includes('eslint')) { _%>
-    "eslint": "^8.9.0",
-    "eslint-config-prettier": "^8.4.0",
-    "eslint-plugin-prettier": "^4.0.0",
-  <%_ if (developFeatures.includes('typescript')) { _%>
-    "@typescript-eslint/eslint-plugin": "^5.12.1",
-    "@typescript-eslint/parser": "^5.12.1",
-  <%_ } _%>
-    "prettier": "^2.3.2",
-  <%_ } _%>
-  <%_ if (developFeatures.includes('typescript')) { _%>
-    "typescript": "^4.5.5",
-    "@babel/preset-typescript": "^7.16.7",
-  <%_ } _%>
-  <%_ if (hardwareFeatures.includes('custom_ui')) { _%>
-    "@babel/preset-react": "^7.16.7",
-    "@types/react": "^16.14.0",
-  <%_ } _%>
-    "@babel/core": "^7.16.12",
-    "@babel/preset-env": "^7.16.11",
-    "babel-loader": "8.2.3",
-    "buffer": "^6.0.3",
-    "copy-webpack-plugin": "6.0.3",
-    "crypto-browserify": "3.12.0",
-    "os-browserify": "0.3.0",
-    "process": "^0.11.10",
-    "rimraf": "^3.0.2",
-    "stream-browserify": "3.0.0",
-    "webpack": "5.45.1",
-    "webpack-cli": "4.7.2",
-    "webpack-merge": "^5.8.0",
-    "ws": "^8.5.0",
-    "ajv": "^8.11.0",
-    "adm-zip": "^0.5.9"
+    "@ubtech/ucode-extension-developer-kit": "latest"
   }
 }

@@ -12,22 +12,19 @@ describe('ts-test', () => {
       developFeatures: ['typescript'],
       hardwareFeatures: [],
     });
-    helper.file(['package.json', 'babel.config.js', 'src/index.ts', 'tsconfig.json', 'types/ucode.d.ts']);
+    helper.file(['package.json', 'src/index.ts', 'tsconfig.json', 'types/ucode.d.ts']);
     helper.noFile([
       'src/index.js',
       'src/upload-mode/uploader.ts',
       '.eslintrc.js',
-      '.dev/udp-tcp-server/udp-tcp-server.js',
       'src/components/example.tsx',
     ]);
     helper.fileContent([
       ['static/manifest.json', /"id": "[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}"/], // 正确的 UUID
       ['static/manifest.json', `"name": "demo"`], // demo 名字
       ['static/manifest.json', `"supportModes": ["online"]`], // 只有在线模式
-      ['babel.config.js', `'@babel/preset-typescript',`], // 包含 typescript
     ]);
     helper.noFileContent([
-      ['babel.config.js', `'@babel/preset-react',`], // 不包含 react
       ['src/index.ts', `import { UploadModeRegister } from './upload-mode';`], // 不包含烧录模式代码
       ['src/index.ts', `UploadModeRegister,`], // 不包含烧录模式代码
       ['src/index.ts', `import { spRegister } from './devices/sp-device';`], // 不包含串口协议代码
@@ -51,13 +48,12 @@ describe('ts-test', () => {
       developFeatures: ['typescript', 'eslint'],
       hardwareFeatures: [],
     });
-    helper.file(['package.json', 'babel.config.js', 'src/index.ts', 'tsconfig.json', 'types/ucode.d.ts', '.eslintrc.js']);
-    helper.noFile(['src/index.js', 'src/upload-mode/uploader.ts', '.dev/udp-tcp-server/udp-tcp-server.js']);
+    helper.file(['package.json',  'src/index.ts', 'tsconfig.json', 'types/ucode.d.ts', '.eslintrc.js']);
+    helper.noFile(['src/index.js', 'src/upload-mode/uploader.ts']);
     helper.fileContent([
       ['static/manifest.json', /"id": "[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}"/], // 正确的 UUID
       ['static/manifest.json', `"name": "demo"`], // demo 名字
       ['static/manifest.json', `"supportModes": ["online"]`], // 只有在线模式
-      ['babel.config.js', `'@babel/preset-typescript',`], // 包含 typescript
     ]);
     helper.noFileContent([
       ['src/index.ts', `import { UploadModeRegister } from './upload-mode';`], // 不包含烧录模式代码
@@ -85,20 +81,17 @@ describe('ts-test', () => {
     });
     helper.file([
       'package.json',
-      'babel.config.js',
       'src/index.ts',
       'tsconfig.json',
       'types/ucode.d.ts',
       'src/devices/ble-device.ts',
       'src/devices/sp-device.ts',
-      '.dev/udp-tcp-server/udp-tcp-server.js',
     ]);
     helper.noFile(['src/index.js', '.eslintrc.js']);
     helper.fileContent([
       ['static/manifest.json', /"id": "[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}"/], // 正确的 UUID
       ['static/manifest.json', `"name": "demo"`], // demo 名字
       ['static/manifest.json', `"supportModes": ["online"]`], // 在线模式
-      ['babel.config.js', `'@babel/preset-typescript',`], // 包含 typescript
       ['src/index.ts', `import { spRegister } from './devices/sp-device';`], // 串口协议代码
       ['src/index.ts', `spRegister,`], // 串口协议代码
       ['src/index.ts', `import { bleRegister } from './devices/ble-device';`], // 蓝牙协议代码
@@ -124,18 +117,17 @@ describe('ts-test', () => {
     });
     helper.file([
       'package.json',
-      'babel.config.js',
+      
       'src/index.ts',
       'tsconfig.json',
       'types/ucode.d.ts',
       'src/upload-mode/uploader.ts',
     ]);
-    helper.noFile(['src/index.js', '.eslintrc.js', '.dev/udp-tcp-server/udp-tcp-server.js']);
+    helper.noFile(['src/index.js', '.eslintrc.js']);
     helper.fileContent([
       ['static/manifest.json', /"id": "[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}"/], // 正确的 UUID
       ['static/manifest.json', `"name": "demo"`], // demo 名字
       ['static/manifest.json', `"supportModes": ["online","upload"]`], // 在线模式 和 烧录模式
-      ['babel.config.js', `'@babel/preset-typescript',`], // 包含 typescript
       ['src/index.ts', `import { UploadModeRegister } from './upload-mode';`], // 烧录模式代码
       ['src/index.ts', `UploadModeRegister,`], // 烧录模式代码
     ]);
@@ -166,7 +158,6 @@ describe('ts-test', () => {
     });
     helper.file([
       'package.json',
-      'babel.config.js',
       'src/index.ts',
       'tsconfig.json',
       'types/ucode.d.ts',
@@ -174,7 +165,6 @@ describe('ts-test', () => {
       'src/devices/sp-device.ts',
       'src/upload-mode/uploader.ts',
       '.eslintrc.js',
-      '.dev/udp-tcp-server/udp-tcp-server.js',
       'src/components/example.tsx',
     ]);
     helper.noFile(['src/index.js']);
@@ -182,7 +172,6 @@ describe('ts-test', () => {
       ['static/manifest.json', /"id": "[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}"/], // 正确的 UUID
       ['static/manifest.json', `"name": "demo"`], // demo 名字
       ['static/manifest.json', `"supportModes": ["online","upload"]`], // 在线模式 和 烧录模式
-      ['babel.config.js', `'@babel/preset-typescript',`], // 包含 typescript
       ['src/index.ts', `import { UploadModeRegister } from './upload-mode';`], // 烧录模式代码
       ['src/index.ts', `UploadModeRegister,`], // 烧录模式代码
       ['src/index.ts', `import { spRegister } from './devices/sp-device';`], // 串口协议代码

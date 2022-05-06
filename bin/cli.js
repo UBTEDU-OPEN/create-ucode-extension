@@ -8,5 +8,5 @@ const hello = chalk.hex('#FF7F6F');
 console.log(hello(Greeting));
 const generator = new Generator();
 generator.generate().then((result) => {
-  console.log('result', result);
+  // console.log('result', result);
 });

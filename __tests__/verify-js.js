@@ -13,14 +13,13 @@ describe('js-test', () => {
       developFeatures: [],
       hardwareFeatures: [],
     });
-    helper.file(['package.json', 'babel.config.js', 'src/index.js']);
+    helper.file(['package.json', 'src/index.js']);
     helper.noFile([
       'tsconfig.json',
       'types',
       'src/index.ts',
       'upload-mode',
       '.eslintrc.js',
-      '.dev/udp-tcp-server/udp-tcp-server.js',
       'src/components/example.jsx',
     ]);
     helper.fileContent([
@@ -29,8 +28,6 @@ describe('js-test', () => {
       ['static/manifest.json', `"supportModes": ["online"]`], // 只有在线模式
     ]);
     helper.noFileContent([
-      ['babel.config.js', `'@babel/preset-typescript',`], // 不包含 typescript
-      ['babel.config.js', `'@babel/preset-react',`], // 不包含 react
       ['src/index.js', `import { UploadModeRegister } from './upload-mode';`], // 不包含烧录模式代码
       ['src/index.js', `UploadModeRegister,`], // 不包含烧录模式代码
       ['src/index.js', `import { spRegister } from './devices/sp-device';`], // 不包含串口协议代码
@@ -54,8 +51,8 @@ describe('js-test', () => {
       developFeatures: [],
       hardwareFeatures: ['uploadmode'],
     });
-    helper.file(['package.json', 'babel.config.js', 'src/index.js', 'src/upload-mode/uploader.js']);
-    helper.noFile(['tsconfig.json', 'types', 'src/index.ts', '.dev/udp-tcp-server/udp-tcp-server.js']);
+    helper.file(['package.json', 'src/index.js', 'src/upload-mode/uploader.js']);
+    helper.noFile(['tsconfig.json', 'types', 'src/index.ts']);
     helper.fileContent([
       ['static/manifest.json', /"id": "[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}"/], // 正确的 UUID
       ['static/manifest.json', `"name": "demo"`], // demo 名字
@@ -64,7 +61,6 @@ describe('js-test', () => {
       ['src/index.js', `UploadModeRegister,`], // 包含烧录模式代码
     ]);
     helper.noFileContent([
-      ['babel.config.js', `'@babel/preset-typescript',`], // 不包含 typescript
       ['src/index.js', `import { spRegister } from './devices/sp-device';`], // 不包含串口协议代码
       ['src/index.js', `spRegister,`], // 不包含串口协议代码
       ['src/index.js', `import { bleRegister } from './devices/ble-device';`], // 不包含蓝牙协议代码
@@ -85,13 +81,12 @@ describe('js-test', () => {
       developFeatures: ['eslint'],
       hardwareFeatures: [],
     });
-    helper.file(['package.json', 'babel.config.js', 'src/index.js', '.eslintrc.js']);
+    helper.file(['package.json', 'src/index.js', '.eslintrc.js']);
     helper.noFile([
       'tsconfig.json',
       'types',
       'src/index.ts',
       'src/upload-mode/uploader.js',
-      '.dev/udp-tcp-server/udp-tcp-server.js',
     ]);
     helper.fileContent([
       ['static/manifest.json', /"id": "[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}"/], // 正确的 UUID
@@ -99,7 +94,6 @@ describe('js-test', () => {
       ['static/manifest.json', `"supportModes": ["online"]`], // 只有在线模式
     ]);
     helper.noFileContent([
-      ['babel.config.js', `'@babel/preset-typescript',`], // 不包含 typescript
       ['src/index.js', `import { UploadModeRegister } from './upload-mode';`], // 不包含烧录模式代码
       ['src/index.js', `UploadModeRegister,`], // 不包含烧录模式代码
       ['src/index.js', `import { spRegister } from './devices/sp-device';`], // 不包含串口协议代码
@@ -125,11 +119,9 @@ describe('js-test', () => {
     });
     helper.file([
       'package.json',
-      'babel.config.js',
       'src/index.js',
       'src/devices/sp-device.js',
       'src/devices/ble-device.js',
-      '.dev/udp-tcp-server/udp-tcp-server.js',
     ]);
     helper.noFile(['tsconfig.json', 'types', 'src/index.ts', 'upload-mode', '.eslintrc.js']);
     helper.fileContent([
@@ -144,7 +136,6 @@ describe('js-test', () => {
       ['src/index.js', `tcpRegister,`], // UDP/TCP协议代码
     ]);
     helper.noFileContent([
-      ['babel.config.js', `'@babel/preset-typescript',`], // 不包含 typescript
       ['src/index.js', `import { UploadModeRegister } from './upload-mode';`], // 不包含烧录模式代码
       ['src/index.js', `UploadModeRegister,`], // 不包含烧录模式代码
     ]);
@@ -168,14 +159,12 @@ describe('js-test', () => {
     });
     helper.file([
       'package.json',
-      'babel.config.js',
       'src/index.js',
       'src/devices/sp-device.js',
       'src/devices/ble-device.js',
       'src/upload-mode/uploader.js',
       'src/upload-mode/uploader.js',
       '.eslintrc.js',
-      '.dev/udp-tcp-server/udp-tcp-server.js',
       'src/components/example.jsx',
     ]);
     helper.noFile(['tsconfig.json', 'types', 'src/index.ts']);
@@ -192,12 +181,6 @@ describe('js-test', () => {
       ['src/index.js', `import { tcpRegister } from './devices/udp-tcp-device';`], // UDP/TCP协议代码
       ['src/index.js', `tcpRegister,`], // UDP/TCP协议代码
       ['src/index.js', `import { DemoComp } from './components/example';`], // 包含自定义UI代码
-    ]);
-    helper.fileContent([
-      ['babel.config.js', `'@babel/preset-react',`], // 包含 react
-    ]);
-    helper.noFileContent([
-      ['babel.config.js', `'@babel/preset-typescript',`], // 不包含 typescript
     ]);
   });
 });

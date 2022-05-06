@@ -8,6 +8,26 @@ const chalk = require('chalk');
 
 const prompt = require('./prompt');
 
+const { spawn } = require('child_process');
+
+function npmInstall(useYarn, dir) {
+  return new Promise((resolve, reject) => {
+    let tool;
+    if (useYarn) {
+      tool = 'yarn';
+    } else {
+      tool = 'npm';
+    }
+    console.log(`${tool} install`);
+    const installProcess = spawn(tool, ['install'], { cwd: dir, stdio: 'inherit' });
+    // installProcess.stdout.pipe(process.stdout);
+    // installProcess.stderr.pipe(process.stderr);
+    installProcess.on('exit', () => {
+      resolve();
+    });
+  })
+}
+
 class Generator {
   props = {};
   ignore = [];
@@ -53,7 +73,7 @@ class Generator {
     }
   }
 
-  install() {
+  copyFiles() {
     this._copySrc();
     this._copyOthers();
     this._copyNpmrc();
@@ -76,15 +96,25 @@ class Generator {
   generate() {
     return this.prompt()
       .then(() => this.init())
-      .then(() => this.install())
-      .then(() => this.finish());
+      .then(() => this.copyFiles())
+      .then(() => this.finish())
+      .then((list) => {
+        if (this.DEBUG || !this.props.isInstall) {
+          return list;
+        }
+        return this.installDependencies();
+      });
   }
 
   assert(property) {
     this.props = property;
     this.init();
-    this.install();
+    this.copyFiles();
     return this.finish();
+  }
+
+  installDependencies() {
+    return npmInstall(this.props.useYarn, this.destinationRoot);
   }
 
   _ignoreFiles() {
@@ -104,11 +134,6 @@ class Generator {
     if (!this.props.hardwareFeatures.includes('serialport')) {
       // 如果不开启蓝牙
       this.ignore.push('**/*/devices/sp-device.?(js|ts)');
-    }
-    if (!this.props.hardwareFeatures.includes('udp_tcp')) {
-      // 如果不开启UDP/TCP
-      this.ignore.push('**/*/devices/udp-tcp-device.?(js|ts)');
-      this.ignore.push('**/*/udp-tcp-server/*.*');
     }
     if (!this.props.developFeatures.includes('eslint')) {
       // 如果不支持 ESLint, 则忽略 以下文件

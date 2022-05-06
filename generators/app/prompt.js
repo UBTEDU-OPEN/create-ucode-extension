@@ -73,6 +73,23 @@ function prompt(isDebug = false) {
             }
           },
         },
+        {
+          type: 'confirm',
+          name: 'isInstall',
+          message: '是否要安装依赖?',
+          default: true,
+        },
+        {
+          type: 'confirm',
+          name: 'useYarn',
+          message: '是否要使用 Yarn 安装依赖?',
+          default: true,
+          when(results) {
+            if (results.isInstall !== undefined) {
+              return true;
+            }
+          },
+        },
       ])
       .then((answers) => {
         if (!answers.betaEnable) {

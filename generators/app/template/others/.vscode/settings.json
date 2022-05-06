@@ -1,11 +1,9 @@
 {
-  "json.schemas": [
-    {
-        "fileMatch": [
-            "manifest.json"
-        ],
-        "url": "./.dev/manifest_schema.json"
-    }
-]
-
-}
+    "json.schemas": [
+      {
+        "fileMatch": ["manifest.json"],
+        "url": "./node_modules/@ubtech/ucode-extension-developer-kit/validate/manifest_schema.json"
+      }
+    ]
+  }
+  
