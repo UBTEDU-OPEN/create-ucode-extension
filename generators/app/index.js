@@ -27,11 +27,12 @@ function npmInstall(useYarn, dir) {
   shelljs.cd(dir);
 
   return new Promise((resolve, reject) => {
-    const installProcess = spawn(tool, ['install'], { cwd: dir, stdio: 'inherit' });
+    const installProcess = spawn(tool, ['install'], { cwd: dir, stdio: 'inherit', shell: true });
     installProcess.on('exit', () => {
       resolve();
     });
     installProcess.on('error', (error) => {
+      console.error(chalk.red(error));
       reject(error);
     })
   });
