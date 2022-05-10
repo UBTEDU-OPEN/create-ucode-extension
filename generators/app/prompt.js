@@ -56,10 +56,12 @@ function prompt(isDebug = false) {
             {
               name: '使用 TypeScript',
               value: 'typescript',
+              checked: true,
             },
             {
               name: '使用 ESLint',
               value: 'eslint',
+              checked: true,
             },
           ],
         },

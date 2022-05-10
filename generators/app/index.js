@@ -1,31 +1,40 @@
 const path = require('path');
-const uuid = require('uuid');
+const { spawn } = require('child_process');
 
+const uuid = require('uuid');
 const memFs = require('mem-fs');
 const editor = require('mem-fs-editor');
-const mkdirp = require('mkdirp');
 const chalk = require('chalk');
+const shelljs = require('shelljs');
 
 const prompt = require('./prompt');
 
-const { spawn } = require('child_process');
 
 function npmInstall(useYarn, dir) {
-  return new Promise((resolve, reject) => {
-    let tool;
-    if (useYarn) {
-      tool = 'yarn';
-    } else {
+  let tool;
+  if (useYarn) {
+    tool = 'yarn';
+  } else {
+    tool = 'npm';
+  }
+  if (tool === 'yarn') {
+    if (!shelljs.which('yarn')) {
+      console.log(chalk.red('没有检测到 yarn, 切换为: npm 安装'));
       tool = 'npm';
     }
-    console.log(`${tool} install`);
+  }
+  console.log(`${tool} install`);
+  shelljs.cd(dir);
+
+  return new Promise((resolve, reject) => {
     const installProcess = spawn(tool, ['install'], { cwd: dir, stdio: 'inherit' });
-    // installProcess.stdout.pipe(process.stdout);
-    // installProcess.stderr.pipe(process.stderr);
     installProcess.on('exit', () => {
       resolve();
     });
-  })
+    installProcess.on('error', (error) => {
+      reject(error);
+    })
+  });
 }
 
 class Generator {
@@ -69,7 +78,7 @@ class Generator {
     };
     this._ignoreFiles();
     if (!this.DEBUG) {
-      mkdirp(this.destinationRoot);
+      shelljs.mkdir('-p', this.destinationRoot);
     }
   }
 
@@ -149,8 +158,6 @@ class Generator {
 
   _copySrc() {
     const srcPath = path.join(this.sourceRoot, 'src', this.props.developFeatures.includes('typescript') ? 'ts-src' : 'js-src');
-    // console.log('srcPath', srcPath);
-    // console.log('destination Src', path.join(this.destinationRoot, 'src'));
     this.fs.copyTpl(
       srcPath,
       path.join(this.destinationRoot, 'src'),
