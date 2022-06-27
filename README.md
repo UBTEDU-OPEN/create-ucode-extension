@@ -4,4 +4,4 @@
 
 ## 使用指南
 
-`npm_config_registry=http://edu-registry.ubtrobot.com:9601 npx @ubtech/create-ucode-extension`
+`npm_config_registry=https://edu-registry.ubtrobot.com:9601 npx @ubtech/create-ucode-extension`
