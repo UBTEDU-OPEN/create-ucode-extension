@@ -1,4 +1,4 @@
-@ubtech:registry=http://registry.edu.ubtrobot.com:9601/
+@ubtech:registry=http://edu-registry.ubtrobot.com:9601/
 registry=https://registry.npmmirror.com
 
 disturl=https://npmmirror.com/mirrors/node/
