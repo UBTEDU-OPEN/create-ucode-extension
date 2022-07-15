@@ -1,63 +1,9 @@
 module.exports = {
+  root: true,
+  rules: {},
 <%_ if (developFeatures.includes('typescript')) { _%>
-  root: true,
-  parser: '@typescript-eslint/parser',
-  env: {
-    es6: true,
-    node: true,
-    browser: true,
-  },
-  parserOptions: {
-    ecmaVersion: 2020,
-    sourceType: 'module',
-  },
-  plugins: ['@typescript-eslint', 'prettier'],
-  extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'prettier'],
-  rules: {
-    'prettier/prettier': 'error',
-    'no-useless-escape': 'off',
-    'no-useless-concat': 'off',
-    indent: 'off',
-    '@typescript-eslint/indent': 'off',
-    'max-len': 'off',
-    'import/prefer-default-export': 'off',
-    'no-underscore-dangle': 'off',
-    '@typescript-eslint/naming-convention': 'off',
-    'class-methods-use-this': 'off',
-    '@typescript-eslint/no-empty-function': 'off',
-    'no-unused-vars': 'off',
-    '@typescript-eslint/no-unused-vars': [
-      'warn',
-      {
-        vars: 'all',
-        args: 'after-used',
-        ignoreRestSiblings: false,
-      },
-    ],
-  },
+  extends: require.resolve('@ubtech/ucode-extension-developer-kit/lint/typescript.config.js'),
 <%_ } else { _%>
-  root: true,
-  env: {
-    es6: true,
-    node: true,
-    browser: true,
-  },
-  parserOptions: {
-    ecmaVersion: 2020,
-    sourceType: 'module',
-  },
-  plugins: ['prettier'],
-  extends: ['eslint:recommended', 'prettier'],
-  rules: {
-    'prettier/prettier': 'error',
-    'no-useless-escape': 'off',
-    'no-useless-concat': 'off',
-    indent: 'off',
-    'max-len': 'off',
-    'import/prefer-default-export': 'off',
-    'no-underscore-dangle': 'off',
-    'class-methods-use-this': 'off',
-    'no-unused-vars': 'off',
-  },
+  extends: require.resolve('@ubtech/ucode-extension-developer-kit/lint/javascript.config.js'),
 <%_ } _%>
 };

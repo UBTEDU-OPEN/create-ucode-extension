@@ -46,6 +46,6 @@
   "scripts": {},
   "license": "MIT",
   "publishConfig": {
-    "registry": "https://edu-registry.ubtrobot.com:9601"
+    "registry": "http://10.10.1.132:9601"
   }
 }
