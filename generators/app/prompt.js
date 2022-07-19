@@ -74,9 +74,7 @@ function prompt(isDebug = false) {
           name: 'betaEnable',
           message: '是否要启用 Beta 特性, 正式版本可能会不兼容? (选否, 会去掉beta特性)',
           when(results) {
-            if (results.hardwareFeatures.includes('custom_ui')) {
-              return true;
-            }
+            return results.hardwareFeatures.includes('custom_ui');
           },
         },
         {
@@ -91,9 +89,7 @@ function prompt(isDebug = false) {
           message: '是否要使用 Yarn 安装依赖?',
           default: true,
           when(results) {
-            if (results.isInstall !== undefined) {
-              return true;
-            }
+            return results.isInstall;
           },
         },
       ])
