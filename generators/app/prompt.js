@@ -1,6 +1,8 @@
 const inquirer = require('inquirer');
 const path = require('path');
+const chalk = require('chalk');
 const fs = require('fs');
+const { version } = require('../../package.json');
 
 function prompt(isDebug = false) {
   return new Promise((resolve, reject) => {
@@ -99,6 +101,12 @@ function prompt(isDebug = false) {
           if (index > -1) {
             answers.hardwareFeatures.splice(index, 1);
           }
+        }
+        /* 使用的是 beta 版本 还是正式版本的 脚手架 */
+        answers.NPM_TYPE = version.indexOf('beta') > -1 ? 'beta' : 'latest';
+        if (answers.NPM_TYPE === 'beta') {
+          console.log(chalk.blue('检测了使用了 Beta 版本的脚手架, 以下库将会切换成 beta 版本'));
+          console.log(chalk.blue('@ubtech/ucode-common-extension-sdk, @ubtech/ucode-developer-kit'));
         }
         resolve(answers);
       })

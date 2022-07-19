@@ -76,6 +76,7 @@ class Generator {
       name: this.props.name,
       hardwareFeatures: this.props.hardwareFeatures,
       developFeatures: this.props.developFeatures,
+      NPM_TYPE: this.props.NPM_TYPE,
     };
     this._ignoreFiles();
     if (!this.DEBUG) {
