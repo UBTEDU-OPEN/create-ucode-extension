@@ -18,6 +18,8 @@ describe('ts-test', () => {
       'src/upload-mode/uploader.ts',
       '.eslintrc.js',
       'src/components/example.tsx',
+      'src/message.ts',
+      'src/message.js',
     ]);
     helper.fileContent([
       ['static/manifest.json', /"id": "[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}"/], // 正确的 UUID
@@ -34,6 +36,7 @@ describe('ts-test', () => {
       ['src/index.ts', `import { tcpRegister } from './devices/udp-tcp-device';`], // 不包含UDP/TCP协议代码
       ['src/index.ts', `tcpRegister,`], // 不包含UDP/TCP协议代码
       ['src/index.ts', `import { DemoComp } from './components/example';`], // 不包含自定义UI代码
+      ['src/block.ts', `import Messages from './message';`], // 不包含 国际化 代码
     ]);
   });
 
@@ -149,12 +152,12 @@ describe('ts-test', () => {
    * custom-ui
    * Eslint
    */
-  describe('ts-uploadmode-ble-sp-tcp-eslint', () => {
+  describe('ts-all', () => {
     const helper = new AssertHelper();
     helper.run({
       name: 'demo',
       developFeatures: ['typescript', 'eslint'],
-      hardwareFeatures: ['uploadmode', 'ble', 'serialport', 'udp_tcp', 'custom_ui'],
+      hardwareFeatures: ['uploadmode', 'ble', 'serialport', 'udp_tcp', 'custom_ui', 'i18n'],
     });
     helper.file([
       'package.json',
@@ -166,11 +169,12 @@ describe('ts-test', () => {
       'src/upload-mode/uploader.ts',
       '.eslintrc.js',
       'src/components/example.tsx',
+      'src/message.ts',
     ]);
     helper.noFile(['src/index.js']);
     helper.fileContent([
       ['static/manifest.json', /"id": "[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}"/], // 正确的 UUID
-      ['static/manifest.json', `"name": "demo"`], // demo 名字
+      ['static/manifest.json', `"defaultMessage": "demo"`], // demo 名字 (国际化)
       ['static/manifest.json', `"supportModes": ["online","upload"]`], // 在线模式 和 烧录模式
       ['src/index.ts', `import { UploadModeRegister } from './upload-mode';`], // 烧录模式代码
       ['src/index.ts', `UploadModeRegister,`], // 烧录模式代码
@@ -181,6 +185,7 @@ describe('ts-test', () => {
       ['src/index.ts', `import { tcpRegister } from './devices/udp-tcp-device';`], // UDP/TCP协议代码
       ['src/index.ts', `tcpRegister,`], // UDP/TCP协议代码
       ['src/index.ts', `import { DemoComp } from './components/example';`], // 包含自定义UI代码
+      ['src/block.ts', `import Messages from './message';`], // 包含 国际化 代码
     ]);
     helper.noFileContent([]);
   });

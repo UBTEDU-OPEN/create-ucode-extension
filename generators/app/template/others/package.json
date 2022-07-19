@@ -14,7 +14,8 @@
   <%_ } _%>
     "compile:dev": "cua-build-dev",
     "compile": "cua-build-prod",
-    "dev": "cua-debug"
+    "dev": "cua-debug",
+    "i18n": "cua-i18n-extract"
   },
   "dependencies": {
     "@ubtech/ucode-extension-common-sdk": "latest"

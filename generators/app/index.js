@@ -145,6 +145,10 @@ class Generator {
       // 如果不开启蓝牙
       this.ignore.push('**/*/devices/sp-device.?(js|ts)');
     }
+    if (!this.props.hardwareFeatures.includes('i18n')) {
+      // 如果不开启 国际化
+      this.ignore.push('**/*/message.?(js|ts)');
+    }
     if (!this.props.developFeatures.includes('eslint')) {
       // 如果不支持 ESLint, 则忽略 以下文件
       this.ignore.push('**/*/.eslintrc.js');

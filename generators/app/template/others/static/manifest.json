@@ -1,16 +1,33 @@
 {
   "id": "<%= id %>",
   "version": "0.0.1",
-  "name": "<%= name %>",
   "type": "hardware",
 <%_ if (hardwareFeatures.includes('uploadmode')) { _%>
   "supportModes": ["online","upload"],
 <%_ } else { _%>
   "supportModes": ["online"],
 <%_ } _%>
+<%_ if (hardwareFeatures.includes('i18n')) { _%>
+  "name": {
+    "id": "manifest.name",
+    "defaultMessage": "<%= name %>",
+    "description": "Manifest 插件名字"
+  },
+  "description": {
+    "id": "manifest.description",
+    "defaultMessage": "这是一个demo",
+    "description": "插件描述"
+  },
+  "author": {
+    "id": "manifest.author",
+    "defaultMessage": "你的名字",
+    "description": "插件作者名字"
+  },
+<%_ } else { _%>
+  "name": "<%= name %>",
   "description": "这是一个demo",
-  "icon": "logo.svg",
   "author": "你的名字",
-  "readme": "这是一个测试",
-  "USV": "0.5.0"
+<%_ } _%>
+  "icon": "logo.svg",
+  "USV": "0.6.0"
 }

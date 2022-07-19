@@ -1,4 +1,7 @@
 import { ExtensionUI } from '@ubtech/ucode-extension-common-sdk';
+<%_ if (hardwareFeatures.includes('i18n')) { _%>
+import Messages from './message';
+<%_ } _%>
 
 const { Toast } = ExtensionUI;
 
@@ -6,7 +9,11 @@ export class ExampleDeviceExtension {
   getInfo() {
     return [
       {
+<%_ if (hardwareFeatures.includes('i18n')) { _%>
+        name: Messages.SendCategoryName,
+<%_ } else { _%>
         name: '发送',
+<%_ } _%>
         blocks: [
           {
             opcode: 'test-send',
@@ -17,13 +24,21 @@ export class ExampleDeviceExtension {
                 defaultValue: 'hello',
               },
             },
+<%_ if (hardwareFeatures.includes('i18n')) { _%>
+            text: Messages.TestSendBlock,
+<%_ } else { _%>
             text: '发送消息: [TEXT]',
+<%_ } _%>
             func: 'testSendMsg',
           },
         ],
       },
       {
+<%_ if (hardwareFeatures.includes('i18n')) { _%>
+        name: Messages.ReceiveCategoryName,
+<%_ } else { _%>
         name: '接收',
+<%_ } _%>
         blocks: [
           {
             opcode: 'test-receive',
@@ -34,7 +49,11 @@ export class ExampleDeviceExtension {
                 defaultValue: 'hello',
               },
             },
+<%_ if (hardwareFeatures.includes('i18n')) { _%>
+            text: Messages.TestReceiveBlock,
+<%_ } else { _%>
             text: '接收消息: [TEXT]',
+<%_ } _%>
             func: 'testReceiveMsg',
           },
         ],

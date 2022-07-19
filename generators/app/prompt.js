@@ -46,6 +46,10 @@ function prompt(isDebug = false) {
               name: '自定义 UI 组件 *(Beta)',
               value: 'custom_ui',
             },
+            {
+              name: '国际化支持',
+              value: 'i18n'
+            }
           ],
         },
         {

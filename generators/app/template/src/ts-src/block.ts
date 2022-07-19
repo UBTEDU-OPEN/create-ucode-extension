@@ -1,6 +1,9 @@
 import { ExtensionUI } from '@ubtech/ucode-extension-common-sdk';
 import type { UCodeExternalHardwareDefinition } from '@ubtech/ucode-extension-common-sdk/types';
 import { WebsocketDevice } from './devices/websocket-device';
+<%_ if (hardwareFeatures.includes('i18n')) { _%>
+import Messages from './message';
+<%_ } _%>
 
 const { Toast } = ExtensionUI;
 
@@ -9,7 +12,11 @@ export class ExampleDeviceExtension {
     return [
       {
         // category-1
+<%_ if (hardwareFeatures.includes('i18n')) { _%>
+        name: Messages.SendCategoryName,
+<%_ } else { _%>
         name: '发送',
+<%_ } _%>
         color1: '#0FBD8C',
         color2: '#0DA57A',
         color3: '#0B8E69',
@@ -23,14 +30,22 @@ export class ExampleDeviceExtension {
                 defaultValue: 'hello',
               },
             },
+<%_ if (hardwareFeatures.includes('i18n')) { _%>
+            text: Messages.TestSendBlock,
+<%_ } else { _%>
             text: '发送消息: [TEXT]',
+<%_ } _%>
             func: 'testSendMsg',
           },
         ],
       },
       {
         // category-2
+<%_ if (hardwareFeatures.includes('i18n')) { _%>
+        name: Messages.ReceiveCategoryName,
+<%_ } else { _%>
         name: '接收',
+<%_ } _%>
         color1: '#0FBD8C',
         color2: '#0DA57A',
         color3: '#0B8E69',
@@ -44,7 +59,11 @@ export class ExampleDeviceExtension {
                 defaultValue: 'hello',
               },
             },
+<%_ if (hardwareFeatures.includes('i18n')) { _%>
+            text: Messages.TestReceiveBlock,
+<%_ } else { _%>
             text: '接收消息: [TEXT]',
+<%_ } _%>
             func: 'testReceiveMsg',
           },
         ],
